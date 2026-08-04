@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+int main() {
+    FILE *filePointer;
+    char textRead[100];
+
+    // 1. OPEN FILE FOR WRITING ('w')
+    filePointer = fopen("gamedata.txt", "w");
+    if (filePointer == NULL) {
+        printf("Error opening file for writing!\n");
+        return 1;
+    }
+
+    // Write text to the file
+    fprintf(filePointer, "High Score: 4500 points\nPlayer Name: Alex");
+    fclose(filePointer); // Always close the file when done
+    printf("Data successfully written to gamedata.txt\n\n");
+
+    // 2. OPEN FILE FOR READING ('r')
+    filePointer = fopen("gamedata.txt", "r");
+    if (filePointer == NULL) {
+        printf("Error opening file for reading!\n");
+        return 1;
+    }
+
+    printf("Reading contents from file:\n");
+    // Read the file line by line until the end of the file (fgets returns NULL)
+    while (fgets(textRead, sizeof(textRead), filePointer) != NULL) {
+        printf("%s", textRead);
+    }
+
+    fclose(filePointer);
+    return 0;
+}

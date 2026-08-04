@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+// Function declaration (prototype)
+long long findFactorial(int n);
+
+int main() {
+    int num;
+    printf("Enter a positive integer: ");
+    scanf("%d", &num);
+
+    // Call the function and print the result
+    printf("Factorial of %d = %lld\n", num, findFactorial(num));
+    return 0;
+}
+
+// Function definition
+long long findFactorial(int n) {
+    long long fact = 1;
+    for (int i = 1; i <= n; i++) {
+        fact *= i;
+    }
+    return fact;
+}

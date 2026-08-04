@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main() {
+    int age = 25;
+    int *ptr; // Declaring a pointer variable
+
+    ptr = &age; // Store the memory address of 'age' in 'ptr'
+
+    printf("Value of age: %d\n", age);
+    printf("Memory address of age: %p\n", (void*)&age);
+    
+    printf("Address stored in pointer ptr: %p\n", (void*)ptr);
+    printf("Value pointed to by ptr: %d\n", *ptr); // Dereferencing
+
+    return 0;
+}
