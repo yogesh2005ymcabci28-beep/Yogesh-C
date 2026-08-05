@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct document get_document(char* text) {
+    struct document doc = {NULL, 0};
+    struct paragraph* cur_p = NULL;
+    struct sentence* cur_s = NULL;
+    
+    char* s = text;
+    int is_new_word = 1;
+    
+    while (*s) {
+        // Initialize a new paragraph if needed
+        if (cur_p == NULL) {
+            doc.data = realloc(doc.data, (doc.paragraph_count + 1) * sizeof(struct paragraph));
+            cur_p = &doc.data[doc.paragraph_count++];
+            cur_p->data = NULL;
+            cur_p->sentence_count = 0;
+            cur_s = NULL;
+        }
+        // Initialize a new sentence if needed
+        if (cur_s == NULL) {
+            cur_p->data = realloc(cur_p->data, (cur_p->sentence_count + 1) * sizeof(struct sentence));
+            cur_s = &cur_p->data[cur_p->sentence_count++];
+            cur_s->data = NULL;
+            cur_s->word_count = 0;
+            is_new_word = 1;
+        }
+        
+        // Handle token delimiters
+        if (*s == ' ' || *s == '.' || *s == '\n') {
+            char delimiter = *s;
+            *s = '\0'; // Turn the delimiter into a string null-terminator in place
+            
+            if (delimiter == '.') {
+                cur_s = NULL; // Mark sentence end
+            } else if (delimiter == '\n') {
+                cur_s = NULL; // Mark sentence end
+                cur_p = NULL; // Mark paragraph end
+            }
+            is_new_word = 1;
+        } else {
+            // Found a valid word character
+            if (is_new_word) {
+                cur_s->data = realloc(cur_s->data, (cur_s->word_count + 1) * sizeof(struct word));
+                cur_s->data[cur_s->word_count++].data = s; // Assign pointer to start of word
+                is_new_word = 0;
+            }
+        }
+        s++;
+    }
+    return doc;
+}
+
+struct paragraph kth_paragraph(struct document Doc, int k) {
+    return Doc.data[k - 1];
+}
+
+struct sentence kth_sentence_in_mth_paragraph(struct document Doc, int k, int m) {
+    return Doc.data[m - 1].data[k - 1];
+}
+
+struct word kth_word_in_mth_sentence_of_nth_paragraph(struct document Doc, int k, int m, int n) {
+    return Doc.data[n - 1].data[m - 1].data[k - 1];
+}
