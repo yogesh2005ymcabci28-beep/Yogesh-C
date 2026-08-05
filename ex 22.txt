@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+int main() {
+    int value = 42;
+    int *ptr; // 1. Declare a pointer to an integer
+
+    // 2. Assign the memory address of 'value' to the pointer
+    ptr = &value; 
+
+    printf("--- Basic Pointer Operations ---\n");
+    printf("Value of the variable: %d\n", value);
+    printf("Memory address of the variable (&value): %p\n", (void*)&value);
+    printf("Address stored in pointer (ptr): %p\n", (void*)ptr);
+    printf("Value dereferenced by pointer (*ptr): %d\n\n", *ptr);
+
+    // 3. Modify the value indirectly via the pointer
+    *ptr = 100;
+    printf("Value after modification through pointer: %d\n\n", value);
+
+    // 4. Pointer Arithmetic with Arrays
+    printf("--- Pointer Arithmetic with Arrays ---\n");
+    int numbers[] = {10, 20, 30};
+    int *arr_ptr = numbers; // An array name points to its first element
+
+    for (int i = 0; i < 3; i++) {
+        // (arr_ptr + i) calculates the address of the next index
+        // *(arr_ptr + i) retrieves the value at that address
+        printf("Element %d: Address = %p, Value = %d\n", i, (void*)(arr_ptr + i), *(arr_ptr + i));
+    }
+
+    return 0;
+}

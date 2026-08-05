@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+int main() {
+    int n, i;
+    float sum = 0.0, average;
+
+    // 1. Ask the user for the number of elements
+    printf("Enter the number of elements (1 to 100): ");
+    scanf("%d", &n);
+
+    // Ensure the size stays within limits
+    if (n > 100 || n <= 0) {
+        printf("Error! Number should be in range of 1 to 100.\n");
+        return 1; 
+    }
+
+    // 2. Declare an array of size n
+    int numbers[n]; 
+
+    // 3. Store inputs from user into the array
+    for (i = 0; i < n; ++i) {
+        printf("Enter number %d: ", i + 1);
+        scanf("%d", &numbers[i]);
+        sum += numbers[i]; // Add the value to sum
+    }
+
+    // 4. Calculate the average
+    average = sum / n;
+
+    // 5. Find the maximum element in the array
+    int max = numbers[0]; // Assume first element is the largest initially
+    for (i = 1; i < n; ++i) {
+        if (numbers[i] > max) {
+            max = numbers[i]; // Update max if a larger value is found
+        }
+    }
+
+    // 6. Output the results
+    printf("\n--- Results ---\n");
+    printf("Average = %.2f\n", average);
+    printf("Maximum value = %d\n", max);
+
+    return 0;
+}
