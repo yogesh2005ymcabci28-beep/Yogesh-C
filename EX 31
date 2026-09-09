@@ -1,12 +1,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
-
-// Helper sorting comparison function
 int compareInts(const void* a, const void* b) {
     return (*(int*)a - *(int*)b);
 }
-
-// 15. 3Sum
 int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes) {
     *returnSize = 0;
     if (numsSize < 3) return NULL;
